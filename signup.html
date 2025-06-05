@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>فرم عضویت - بانک صادقین</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="signup.css" />
 </head>
 <body>
 
@@ -21,50 +21,170 @@
     <h2>اطلاعات هویتی</h2>
 
     <form id="identity-form" class="form-container">
-      <label>نام:</label>
-      <input type="text" required />
+  <label>نام:</label>
+  <input type="text" id="first-name" />
 
-      <label>نام خانوادگی:</label>
-      <input type="text" required />
+  <label>نام خانوادگی:</label>
+  <input type="text" id="last-name" />
 
-      <label>تاریخ تولد:</label>
-      <input type="date" required />
+  <div class="form-group">
+    <label>تاریخ تولد (روز / ماه / سال):</label>
+    <div class="dob-fields">
+      <input type="text" name="birth-day" id="birth-day" placeholder="روز" maxlength="2" >
+      <input type="text" name="birth-month" id="birth-month" placeholder="ماه" maxlength="2" >
+      <input type="text" name="birth-year" id="birth-year" placeholder="سال" maxlength="4" >
+    </div>
+    <div id="dob-error" style="color: red; font-size: 0.9rem; margin-top: 5px; display: none;">
+      لطفاً تاریخ تولد معتبر وارد کنید.
+    </div>
+  </div>
 
-      <label>نام پدر:</label>
-      <input type="text" required />
+  <label>نام پدر:</label>
+  <input type="text" id="father-name" />
 
-      <label>شماره ملی:</label>
-      <input type="text" required pattern="\d{10}" />
+  <label>شماره ملی:</label>
+  <input type="text" id="national-code" pattern="\d{10}" placeholder="ده رقمی"/>
 
-      <label>جنسیت:</label>
-      <select required>
-        <option value="">انتخاب کنید</option>
-        <option value="male">مرد</option>
-        <option value="female">زن</option>
-      </select>
+  <label>جنسیت:</label>
+  <select id="gender">
+    <option value="">انتخاب کنید</option>
+    <option value="male">مرد</option>
+    <option value="female">زن</option>
+  </select>
 
-      <label>شماره تلفن همراه:</label>
-      <input type="tel" required pattern="09\d{9}" />
+  <label>شماره تلفن همراه:</label>
+  <input type="tel" id="phone" pattern="09\d{9}" placeholder="09"/>
 
-      <label>آدرس محل سکونت:</label>
-      <textarea rows="3" required></textarea>
+  <label>آدرس محل سکونت:</label>
+  <textarea id="address" rows="3"></textarea>
 
-      <label>ایمیل:</label>
-      <input type="email" required />
+  <label>ایمیل:</label>
+  <input type="email" id="email" placeholder="example@gmail.com" />
 
-      <label>نمونه امضا:</label>
-      <canvas id="signature-pad" width="300" height="150"></canvas>
-      <button type="button" onclick="clearSignature()">پاک کردن امضا</button>
+  <label>نمونه امضا:</label>
+  <div style="max-width: 100%; overflow-x: auto;">
+    <canvas id="signature-pad" width="300" height="150"></canvas>
+  </div>
 
-      <br><br>
-      <button type="submit" class="cta-button">ثبت اطلاعات</button>
-    </form>
+  <div class="button-group">
+    <button type="button" onclick="clearSignature()" class="clear-signature-btn">پاک کردن امضا</button>
+    <button type="submit" class="cta-button">ثبت اطلاعات</button>
+  </div>
+</form>
 
     <div id="success-message" class="success-box">
       ✅ اطلاعات شما با موفقیت ثبت گردید.
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById("identity-form");
+const successBox = document.getElementById("success-message");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const nationalCodeInput = document.getElementById("national-code");
+  const phoneInput = document.getElementById("phone");
+  const emailInput = document.getElementById("email");
+
+  const nationalCode = nationalCodeInput.value.trim();
+  const phone = phoneInput.value.trim();
+  const email = emailInput.value.trim();
+
+  if (!validateDOB()) {
+    return;
+  }
+
+  if (!/^\d{10}$/.test(nationalCode)) {
+    alert("شماره ملی باید دقیقا ۱۰ رقم باشد.");
+    nationalCodeInput.focus();
+    return;
+  }
+
+  if (!/^09\d{9}$/.test(phone)) {
+    alert("شماره تلفن همراه باید با 09 شروع شود و ۱۱ رقم داشته باشد.");
+    phoneInput.focus();
+    return;
+  }
+
+  if (email !== "" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert("فرمت ایمیل وارد شده صحیح نیست.");
+    emailInput.focus();
+    return;
+  }
+
+  if (isCanvasBlank()) {
+    alert("لطفا امضای خود را وارد نمایید.");
+    return;
+  }
+
+  // نمایش پیام موفقیت
+  successBox.style.display = "block";
+
+  successBox.scrollIntoView({ behavior: "smooth" });
+
+  // پس از 3 ثانیه پیام موفقیت را مخفی کن
+  setTimeout(() => {
+    successBox.style.display = "none";
+  }, 3000);
+
+  // ریست فرم و پاک کردن امضا
+  form.reset();
+  clearSignature();
+});
+
+const canvas = document.getElementById("signature-pad");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+
+function isCanvasBlank() {
+  const blank = document.createElement("canvas");
+  blank.width = canvas.width;
+  blank.height = canvas.height;
+  return canvas.toDataURL() === blank.toDataURL();
+}
+
+canvas.addEventListener("mousedown", (e) => {
+  drawing = true;
+  ctx.beginPath();
+  ctx.moveTo(e.offsetX, e.offsetY);
+});
+canvas.addEventListener("mousemove", (e) => {
+  if (drawing) {
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+  }
+});
+canvas.addEventListener("mouseup", () => {
+  drawing = false;
+});
+canvas.addEventListener("mouseleave", () => {
+  drawing = false;
+});
+
+function clearSignature() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function validateDOB() {
+  const day = document.getElementById("birth-day").value.trim();
+  const month = document.getElementById("birth-month").value.trim();
+  const year = document.getElementById("birth-year").value.trim();
+  const errorBox = document.getElementById("dob-error");
+
+  const isValidDay = /^\d{1,2}$/.test(day) && parseInt(day) >= 1 && parseInt(day) <= 31;
+  const isValidMonth = /^\d{1,2}$/.test(month) && parseInt(month) >= 1 && parseInt(month) <= 12;
+  const isValidYear = /^\d{4}$/.test(year) && parseInt(year) >= 1250 && parseInt(year) <= 1500;
+
+  if (!isValidDay || !isValidMonth || !isValidYear) {
+    errorBox.style.display = "block";
+    return false;
+  }
+
+  errorBox.style.display = "none";
+  return true;
+}
+
+  </script>
 </body>
 </html>

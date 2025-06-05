@@ -51,19 +51,19 @@ body {
 }
 
 
+
 .intro-section {
   background-color: #ffffff;
   margin: -30px auto 40px;
-  padding: 30px 25px;
-  max-width: 900px;
+  padding: 20px 25px;  /* کاهش padding */
+  max-width: 600px;    /* کوچکتر کردن فرم */
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   position: relative;
   z-index: 10;
   text-align: right;
+  background: linear-gradient(to left, #c8dadc, #2ba445); /* بک گراند زیبا */
 }
-
-
 .intro-section h2 {
   color: #002147; 
   font-size: 1.8rem;
@@ -82,36 +82,6 @@ body {
   margin-top: 15px;
   border-radius: 2px;
 }
-.intro-section2 {
-  background-color: #ffffff;
-  margin: -30px auto 40px;
-  padding: 20px 25px;  /* کاهش padding */
-  max-width: 600px;    /* کوچکتر کردن فرم */
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 10;
-  text-align: right;
-  background: linear-gradient(to left, #c8dadc, #2ba445); /* بک گراند زیبا */
-}
-.intro-section2 h2 {
-  color: #002147; 
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  position: relative;
-  display: inline-block;
-}
-
-
-.intro-section2 h2::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: rgba(255, 0, 0, 0.3);
-  margin-top: 15px;
-  border-radius: 2px;
-}
 .intro-text {
   font-size: 1.05rem;
   line-height: 1.1;
@@ -120,12 +90,26 @@ body {
   text-align: right;
   margin-top: -8px;
 }
-/* گروه دکمه ها کنار هم */
-.button-group {
-  margin-top: 10px;
+.dob-fields {
   display: flex;
   gap: 10px;
-  max-width: 420px; /* حداکثر عرض همسان با فرم */
+  max-width: 400px;
+}
+
+.dob-fields input {
+  flex: 1;
+  padding: 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* گروه دکمه ها کنار هم */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  max-width: 420px;
 }
 
 /* دکمه پاک کردن امضا کوچکتر و قرمز */
@@ -139,6 +123,9 @@ body {
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(211, 47, 47, 0.7);
   transition: background-color 0.3s ease;
+  font-size: 1rem;         /* افزایش سایز فونت */
+  padding: 10px 24px;      /* افزایش فضای داخلی */
+  border-radius: 30px;     /* کمی گردتر */
 }
 
 .clear-signature-btn:hover {
@@ -151,24 +138,24 @@ body {
 }
 
 .cta-button {
-  background: linear-gradient(to left, #00796b, #26a69a);
+ background-color: #1976d2;
   color: white;
-  text-decoration: none;
-  padding: 14px 32px;
-  font-size: 1.1rem;
-  font-weight: bold;
   border: none;
-  border-radius: 50px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  display: inline-block;
+  border-radius: 25px;
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.7);
+  transition: background-color 0.3s ease;
+  font-size: 1rem;         /* افزایش سایز فونت */
+  padding: 10px 24px;      /* افزایش فضای داخلی */
+  border-radius: 30px;     /* کمی گردتر */
 }
 
 .cta-button:hover {
-  background: linear-gradient(to left, #004d40, #009688);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+   background-color: #0d47a1;
 }
+
 .intro-image-box {
   display: flex;
   justify-content: flex-end; 
@@ -317,22 +304,6 @@ canvas {
   max-width: 100%;   /* از کادر بیرون نزنه */
   height: auto;
   display: block;
-}
-
-button[type="submit"], .cta-button {
-  background: linear-gradient(to left, #00796b, #26a69a);
-  color: white;
-  padding: 12px 30px;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.cta-button:hover {
-  background: linear-gradient(to left, #004d40, #009688);
 }
 
 .success-box {
