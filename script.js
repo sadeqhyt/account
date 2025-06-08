@@ -38,17 +38,15 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  // نمایش پیام موفقیت
+  
   successBox.style.display = "block";
 
   successBox.scrollIntoView({ behavior: "smooth" });
 
-  // پس از 3 ثانیه پیام موفقیت را مخفی کن
   setTimeout(() => {
     successBox.style.display = "none";
   }, 3000);
 
-  // ریست فرم و پاک کردن امضا
   form.reset();
   clearSignature();
 });

@@ -85,14 +85,14 @@ body {
 .intro-section2 {
   background-color: #ffffff;
   margin: -30px auto 40px;
-  padding: 20px 25px;  /* کاهش padding */
-  max-width: 600px;    /* کوچکتر کردن فرم */
+  padding: 20px 25px;  
+  max-width: 600px;   
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   position: relative;
   z-index: 10;
   text-align: right;
-  background: linear-gradient(to left, #c8dadc, #2ba445); /* بک گراند زیبا */
+  background: linear-gradient(to left, #c8dadc, #2ba445); 
 }
 .intro-section2 h2 {
   color: #002147; 
@@ -120,15 +120,15 @@ body {
   text-align: right;
   margin-top: -8px;
 }
-/* گروه دکمه ها کنار هم */
+
 .button-group {
   margin-top: 10px;
   display: flex;
   gap: 10px;
-  max-width: 420px; /* حداکثر عرض همسان با فرم */
+  max-width: 420px; 
 }
 
-/* دکمه پاک کردن امضا کوچکتر و قرمز */
+
 .clear-signature-btn {
   background-color: #d32f2f;
   color: white;
@@ -296,17 +296,17 @@ body {
 
 input, textarea, select {
   font-family: inherit;
-  font-size: 0.9rem; /* کاهش سایز فونت */
-  padding: 8px 10px; /* کاهش padding */
+  font-size: 0.9rem; 
+  padding: 8px 10px; 
   border: 1px solid #ccc;
-  border-radius: 6px; /* کمی گرد ولی جمع‌تر */
+  border-radius: 6px; 
   max-width: 100%;
 }
 .form-container input,
 .form-container select,
 .form-container textarea {
   width: 100%;
-  max-width: 400px; /* جلوگیری از خیلی پهن شدن */
+  max-width: 400px; 
 }
 
 canvas {
@@ -314,7 +314,7 @@ canvas {
   border-radius: 8px;
   background-color: #f9f9f9;
   cursor: crosshair;
-  max-width: 100%;   /* از کادر بیرون نزنه */
+  max-width: 100%;   
   height: auto;
   display: block;
 }
